@@ -1,0 +1,19 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.phone-number-input {
+  width: 100%;
+  padding: 1%;
+  background-color: beige;
+}
+
+mat-error{
+  color: red;
+}
+
+mat-label {
+  color: darkgreen;
+}

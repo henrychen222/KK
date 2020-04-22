@@ -1,0 +1,35 @@
+<button (click)="fetchCombination()">Get Combination</button>
+<br><br>
+
+<mat-label>Please enter a phone number in 7-10 digits</mat-label>
+<br>
+<mat-form-field class="phone-number-input">
+  <input matInput [formControl]="inputFormControl">
+  <mat-error *ngIf="inputFormControl.hasError('minLength')
+              && inputFormControl.hasError('minLength')
+              && !inputFormControl.hasError('required')">
+    Please enter a valid phone number
+  </mat-error>
+  <mat-error *ngIf="inputFormControl.hasError('required')">
+    phone number is <strong>required</strong>
+  </mat-error>
+</mat-form-field>
+
+
+<br><br><br><br>
+<p>total number of combination is: {{count}}</p>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="combination">
+      <th mat-header-cell *matHeaderCellDef> All Phone Combinations</th>
+      <td mat-cell *matCellDef="let element"> {{element.combination}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PhoneService} from '../../service/phone.service';
 import {Combination} from '../../model/combination';
 import {FormControl, Validators} from '@angular/forms';
-import {MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-phone',
   templateUrl: './phone.component.html',
   styleUrls: ['./phone.component.css']
 })
-export class PhoneComponent implements OnInit {
+export class PhoneComponent implements OnInit, AfterViewInit {
 
   combinationList: Combination;
   count: string;
@@ -17,6 +17,9 @@ export class PhoneComponent implements OnInit {
 
   displayedColumns: string[] = ['combination'];
   dataSource: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  paginatorLength: number;
 
   inputFormControl = new FormControl('', [
     Validators.required,
@@ -28,6 +31,10 @@ export class PhoneComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   fetchCombination(): void {
@@ -64,6 +71,7 @@ export class PhoneComponent implements OnInit {
     }
     console.log(data);
     this.dataSource = new MatTableDataSource(data);
+    this.paginatorLength = data.length;
     console.log(this.dataSource);
   }
 

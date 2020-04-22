@@ -9,7 +9,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
   templateUrl: './phone.component.html',
   styleUrls: ['./phone.component.css']
 })
-export class PhoneComponent implements OnInit, AfterViewInit {
+export class PhoneComponent implements OnInit {
 
   combinationList: Combination;
   count: string;
@@ -31,10 +31,7 @@ export class PhoneComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-  }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
   fetchCombination(): void {
@@ -71,8 +68,11 @@ export class PhoneComponent implements OnInit, AfterViewInit {
     }
     console.log(data);
     this.dataSource = new MatTableDataSource(data);
-    this.paginatorLength = data.length;
     console.log(this.dataSource);
+
+    // Paginator control
+    this.paginatorLength = data.length;
+    this.dataSource.paginator = this.paginator;
   }
 
 }
